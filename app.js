@@ -15,7 +15,7 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/signUp', function (req, res) {
-    return res.send(API.logIn(req.body));
+    return res.send(API.singUp(req.body));
 });
 
 

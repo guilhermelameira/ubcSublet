@@ -1,12 +1,13 @@
 let UBCSubletAPI = require("./src/UBCSubletAPI.js");
+const Configurator = require("./src/Configurator.js");
 let express = require('express');
-let app = express();
+let server = express();
 
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+server.use(express.json());
+server.use(express.urlencoded({extended: false}));
 
 
-app.post('/login', function (req, res) {
+server.post('/login', function (req, res) {
     UBCSubletAPI.logIn(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -14,7 +15,7 @@ app.post('/login', function (req, res) {
     });
 });
 
-app.post('/signUp', function (req, res) {
+server.post('/signUp', function (req, res) {
     UBCSubletAPI.signUp(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -22,7 +23,7 @@ app.post('/signUp', function (req, res) {
     });
 });
 
-app.post('/createPost', function (req, res) {
+server.post('/createPost', function (req, res) {
     UBCSubletAPI.createPost(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -30,7 +31,7 @@ app.post('/createPost', function (req, res) {
     });
 });
 
-app.post('/getCreatePostInfo', function (req, res) {
+server.post('/getCreatePostInfo', function (req, res) {
     UBCSubletAPI.getCreatePostInfo(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -38,7 +39,7 @@ app.post('/getCreatePostInfo', function (req, res) {
     });
 });
 
-app.post('/getPost', function (req, res) {
+server.post('/getPost', function (req, res) {
     UBCSubletAPI.getPost(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -46,7 +47,7 @@ app.post('/getPost', function (req, res) {
     });
 });
 
-app.post('/editPost', function (req, res) {
+server.post('/editPost', function (req, res) {
     UBCSubletAPI.editPost(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -54,7 +55,7 @@ app.post('/editPost', function (req, res) {
     });
 });
 
-app.post('/deletePost', function (req, res) {
+server.post('/deletePost', function (req, res) {
     UBCSubletAPI.deletePost(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -62,7 +63,7 @@ app.post('/deletePost', function (req, res) {
     });
 });
 
-app.post('/acceptSubletRequest', function (req, res) {
+server.post('/acceptSubletRequest', function (req, res) {
     UBCSubletAPI.acceptSubletRequest(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -70,7 +71,7 @@ app.post('/acceptSubletRequest', function (req, res) {
     });
 });
 
-app.post('/createSubleteeInfo', function (req, res) {
+server.post('/createSubleteeInfo', function (req, res) {
     UBCSubletAPI.createSubleteeInfo(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -78,7 +79,7 @@ app.post('/createSubleteeInfo', function (req, res) {
     });
 });
 
-app.post('/editSubleteeInfo', function (req, res) {
+server.post('/editSubleteeInfo', function (req, res) {
     UBCSubletAPI.editSubleteeInfo(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -86,7 +87,7 @@ app.post('/editSubleteeInfo', function (req, res) {
     });
 });
 
-app.post('/createSubletRequest', function (req, res) {
+server.post('/createSubletRequest', function (req, res) {
     UBCSubletAPI.createSubletRequest(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -94,7 +95,7 @@ app.post('/createSubletRequest', function (req, res) {
     });
 });
 
-app.post('/getFilteredPosts', function (req, res) {
+server.post('/getFilteredPosts', function (req, res) {
     UBCSubletAPI.getFilteredPosts(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -102,7 +103,7 @@ app.post('/getFilteredPosts', function (req, res) {
     });
 });
 
-app.post('/getHistory', function (req, res) {
+server.post('/getHistory', function (req, res) {
     UBCSubletAPI.getHistory(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
@@ -110,8 +111,16 @@ app.post('/getHistory', function (req, res) {
     });
 });
 
-app.post('/getFilterCount', function (req, res) {
+server.post('/getFilterCount', function (req, res) {
     UBCSubletAPI.getFilterCount(req.body).then(({response, code}) => {
+        res.status(code).send(response);
+    }).catch((err) => {
+        res.status(404).send(err);
+    });
+});
+
+server.post('/resetDB', function (req, res) {
+    Configurator.resetDB(req.body).then(({response, code}) => {
         res.status(code).send(response);
     }).catch((err) => {
         res.status(404).send(err);
@@ -122,4 +131,4 @@ app.post('/getFilterCount', function (req, res) {
 
 
 
-module.exports = app;
+module.exports = server;

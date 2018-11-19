@@ -7,6 +7,7 @@ DROP TABLE OriginalPrices;
 DROP TABLE Residences;
 DROP TABLE UnitTypes;
 DROP TABLE Users;
+DROP VIEW CompletePosts;
 
 CREATE TABLE Users
 (
@@ -60,13 +61,13 @@ CREATE TABLE SubleteeInfos
 
 CREATE TABLE Rooms
 (
-	RoomsNumber number(5),
+	RoomNumber number(5),
 	Building varchar(50),
 	Residence varchar(50),
 	Floor number(2) NOT NULL,
 	GenderRestriction varchar(10) default 'none',
 	UnitType varchar(50) NOT NULL,
-	PRIMARY KEY(RoomsNumber, Building, Residence),
+	PRIMARY KEY(RoomNumber, Building, Residence),
 	FOREIGN KEY(Residence) REFERENCES Residences
 	    ON DELETE CASCADE,
 	FOREIGN KEY(UnitType) REFERENCES UnitTypes
@@ -83,14 +84,13 @@ CREATE TABLE SubletPosts
 	Status varchar(10) NOT NULL,
 	Building varchar(50) NOT NULL,
 	Residence varchar(50) NOT NULL,
-	RoomsNumber number(5) NOT NULL,
+	RoomNumber number(5) NOT NULL,
 	SubletterEmail varchar(100) NOT NULL,
 	PRIMARY KEY(PostId),
-	FOREIGN KEY(RoomsNumber, Building, Residence) REFERENCES Rooms
+	FOREIGN KEY(RoomNumber, Building, Residence) REFERENCES Rooms
 	    ON DELETE CASCADE,
 	FOREIGN KEY(SubletterEmail) REFERENCES Users
-	    ON DELETE CASCADE,
-	UNIQUE(SubletterEmail, StartDate, EndDate)
+	    ON DELETE CASCADE
 );
 
 CREATE TABLE SubletRequests
@@ -117,6 +117,19 @@ CREATE TABLE HistoryItems
 	FOREIGN KEY(Email) REFERENCES SubleteeInfos
 	    ON DELETE SET NULL
 );
+
+CREATE VIEW CompletePosts AS
+SELECT SubletPosts.PostId, SubletPosts.Price, SubletPosts.StartDate, SubletPosts.EndDate, SubletPosts.AdditionalInfo,
+       SubletPosts.Status, SubletPosts.RoomNumber, SubletPosts.Building, SubletPosts.Residence,
+       Rooms.Floor, Rooms.GenderRestriction, Rooms.UnitType,
+       Residences.MoreInfoLink AS ResidenceInfoLink, Residences.PictureLink AS ResidencePictureLink,
+       UnitTypes.Kitchens, UnitTypes.Bathrooms, UnitTypes.Residents, UnitTypes.MoreInfoLink AS UnitTypeInfoLink,
+       OriginalPrices.YearRoundPrice
+FROM ((((SubletPosts
+LEFT JOIN Rooms ON Rooms.Residence = SubletPosts.Residence AND Rooms.RoomNumber = SubletPosts.RoomNumber AND Rooms.Building = SubletPosts.Building)
+LEFT JOIN Residences ON Residences.ResidenceName =  SubletPosts.Residence)
+LEFT JOIN UnitTypes ON UnitTypes.UnitTypeName = Rooms.UnitType)
+LEFT JOIN OriginalPrices ON OriginalPrices.Residence =  SubletPosts.Residence AND OriginalPrices.UnitType = Rooms.UnitType);
 
 
 -- Add UBC year round residences
@@ -237,11 +250,20 @@ INSERT INTO OriginalPrices
 VALUES ('Iona House','Two Bedroom Large',1009);
 
 
+-- Add mock data
 
-
-
-
-
+--INSERT INTO Users
+--VALUES ('gui.l.a@hotmail.com','ABC123');
+--
+--INSERT INTO Users
+--VALUES ('1edmundoh@gmail.com','ABC123');
+--
+--INSERT INTO Users
+--VALUES ('rahmanshamit@gmail.com','ABC123');
+--
+--INSERT INTO Users
+--VALUES ('raov97@outlook.com','ABC123');
+--
 
 
 

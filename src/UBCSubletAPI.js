@@ -16,56 +16,63 @@ const RequestsManager = require('./RequestsManager.js');
 
 class UBCSubletAPI {
 
-    // Already implemented, use it as a guide
     static async signUp({email, password}) {
+        //check required fields
+        if (!(email && password)) {
+            return {response: {reason: "MISSING_FIELDS"}, code: 404};
+        }
+
         let {successful, reason} = await UsersManager.signUp({email, password});
-        let code = successful? 200 : 404;
-        let response = reason? {reason} : null;
+        let code = successful ? 200 : 404;
+        let response = reason ? {reason} : null;
 
         return {response, code};
     }
 
-    // Already implemented, use it as a guide
     static async logIn({email, password}) {
+        //check required fields
+        if (!(email && password)) {
+            return {response: {reason: "MISSING_FIELDS"}, code: 404};
+        }
+
         let {successful, reason} = await UsersManager.logIn({email, password});
-        let code = successful? 200 : 404;
-        let response = reason? {reason} : null;
+        let code = successful ? 200 : 404;
+        let response = reason ? {reason} : null;
 
         return {response, code};
     }
 
     static async createSubleteeInfo({auth, firstName, lastName, contactInfo}) {
+        // check authentication
         if (!(auth && await UsersManager.isAuthorized(auth))) {
             return {code: 401};
         }
 
-        let email = auth.email;
+        //check required fields
+        if (!(firstName && lastName && contactInfo)) {
+            return {response: {reason: "MISSING_FIELDS"}, code: 404};
+        }
 
-        let {successful, reason} = await UsersManager.addContactInfo({email, firstName, lastName, contactInfo});
-        let code = successful? 200 : 400;
-        let response = reason? {reason} : null;
+        let {successful, reason} = await UsersManager.addContactInfo({email: auth.email, firstName, lastName, contactInfo});
+        let code = successful ? 200 : 400;
+        let response = reason ? {reason} : null;
 
         return {response, code};
     }
 
-    static async editSubleteeInfo({auth, firstName, lastName, contactInfo}) {
+    static async editSubleteeInfo({auth, ...args}) {
+        // check authentication
         if (!(auth && await UsersManager.isAuthorized(auth))) {
             return {code: 401};
         }
 
-        let email = auth.email;
+        let {successful, reason} = await UsersManager.editContactInfo({email: auth.email, ...args})
 
-        let {successful, reason} = await UsersManager.editContactInfo({email, firstName, lastName, contactInfo})
-
-        let code = successful? 200 : 404;
-        let response = reason? {reason} : null;
+        let code = successful ? 200 : 404;
+        let response = reason ? {reason} : null;
 
         return {response, code};
     }
-
-    // All the logic for the above should be in User Manager
-    // We should create other managers to deal with different parts of the application
-    // I created PostsManager and RequestsManger, we might need more
 
     static async getCreatePostInfo({auth}) {
         let responseCode = 200;
@@ -80,73 +87,92 @@ class UBCSubletAPI {
         // TODO: Implement this
 
 
-        return {response: {rooms,residences,unitTypes}, code: responseCode};
+        return {response: {rooms, residences, unitTypes}, code: responseCode};
     }
 
-    static async createPost({auth, price, startDate, endDate, additionalInfo, existingRoom, newRoom}) {
-        let responseCode = 200;
-        let postId;
-
+    static async createPost({ auth, price, startDate, endDate, additionalInfo, existingRoom, newRoom }) {
+        // check authentication
         if (!(auth && await UsersManager.isAuthorized(auth))) {
             return {code: 401};
         }
 
-        // TODO: Implement this
+        //check required fields
+        if (!(price && startDate && endDate && (existingRoom || newRoom))) {
+            return {response: {reason: "MISSING_FIELDS"}, code: 404};
+        }
 
-        return {response: {postId}, code: responseCode};
+        let {successful, reason, postId} = await PostsManager.createPost({ email:auth.email, price, startDate, endDate, additionalInfo, existingRoom, newRoom })
+
+        let code = successful ? 200 : 404;
+        let response = successful ? {postId} : {reason};
+
+        return {response, code};
     }
 
-    static async editPost({auth, postId /* TODO: other fields */}) {
-        let responseCode = 200;
-
+    static async editPost({auth, ...args}) {
+        // check authentication
         if (!(auth && await UsersManager.isAuthorized(auth))) {
             return {code: 401};
         }
 
-        // TODO: Implement this
+        let {successful, reason} = await PostsManager.editPost({email: auth.email, ...args});
 
+        let code = successful ? 200 : 404;
+        let response = successful ? null : {reason};
 
-        return {response: {}, code: responseCode};
+        return {response, code};
     }
 
     static async deletePost({auth, postId}) {
-        let responseCode = 200;
-
+        // check authentication
         if (!(auth && await UsersManager.isAuthorized(auth))) {
             return {code: 401};
         }
 
-        // TODO: Implement this
+        //check required fields
+        if (!(postId)) {
+            return {response: {reason: "MISSING_FIELDS"}, code: 404};
+        }
 
+        let {successful, reason} = await PostsManager.deletePost({email: auth.email, postId});
 
-        return {response: {}, code: responseCode};
+        let code = successful ? 200 : 404;
+        let response = successful ? null : {reason};
+
+        return {response, code};
     }
 
     static async getPost({auth, postId}) {
-        let responseCode = 200;
-        let price;
-        let startDate;
-        let endDate ;
-        let additionalInfo
-        let room;
-
+        // check authentication
         if (!(auth && await UsersManager.isAuthorized(auth))) {
             return {code: 401};
         }
 
-        // TODO: Implement this
+        //check required fields
+        if (!(postId)) {
+            return {response: {reason: "MISSING_FIELDS"}, code: 404};
+        }
 
+        let {successful, reason, post} = await PostsManager.getPost({email: auth.email, postId});
 
-        return {response: {price,startDate,endDate,additionalInfo,room}, code: responseCode};
+        let code = successful ? 200 : 404;
+        let response = successful ? post : {reason};
+
+        return {response, code};
     }
 
     static async getFilteredPosts({filters, orderBy}) {
-        let responseCode = 200;
-        let posts
-        // TODO: Implement this
+        //check required fields
+        if (!(filters || orderBy)) {
+            return {response: {reason: "MISSING_FIELDS"}, code: 404};
+        }
 
+        let {successful, reason, posts} = await PostsManager.getFilteredPosts({filters, orderBy});
 
-        return {response: {posts}, code: responseCode};
+        let code = successful ? 200 : 404;
+        let response = successful ? posts : {reason};
+
+        return {response, code};
     }
 
 

@@ -118,7 +118,7 @@ class UsersManager {
         let reason;
         let successful = false;
 
-        let insertContactInfoQuery = `INSERT INTO SubleteeInfo (Email, Firstname, Lastname, ContactInfo) 
+        let insertContactInfoQuery = `INSERT INTO SubleteeInfos (Email, FirstName, LastName, ContactDescription) 
                                VALUES ('${email}','${firstName}','${lastName}','${contactInfo}')`
 
         try {

@@ -1,0 +1,224 @@
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  margin: 0;
+
+}
+
+header {
+  background-image: url(https://news.ubc.ca/wp-content/uploads/2018/06/UBC-aerial.jpg);
+  background-size: cover;
+  background-blend-mode: soft-light;
+  background-position: 50% 45%;
+  background-color: #49a5ea;
+  height: 100px;
+  button, input[type=submit] {
+    background-color: transparent;
+    color: #F1F9FF;
+    border: solid #F1F9FF 1px;
+    float: right;
+    margin: 40px;
+
+    &:hover {
+      background-color: white;
+      color: #2699FB;
+    }
+    &:active {
+      background-color: #003058;
+      border-color: #003058;
+      color: white;
+    }
+  }
+
+  form {
+    float: right;
+    input:not([type=submit]), select, textarea {
+      background-color: transparent !important;
+      border: solid #F1F9FF 1px !important;
+      color: white !important;
+      height: 40px !important;
+      margin:5px !important;
+      margin-top: 20px !important;
+    }
+    button, input[type=submit]{
+      margin:5px;
+      margin-top: 20px !important;
+
+      margin-right: 40px;
+    }
+  }
+
+}
+
+section {
+  background-color: #F1F9FF;
+  margin: 10px;
+  padding: 20px;
+  width: 25%;
+  float: left;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #2699FB;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+h2 a {
+  font-size: 20px;
+  text-decoration: none;
+}
+
+main {
+  padding: 0 30px;
+  vertical-align: top;
+}
+
+section {
+  display: inline-block;
+  position: relative;
+  top: -30px;
+  input:not([type=submit]), select, textarea {
+    width: 100%;
+  }
+  button, input[type=submit] {
+    background-color: #2699FB;
+    color: white;
+    margin-top: 10px;
+    font-weight: bolder;
+
+    &:hover {
+      background-color: #227ad3;
+    }
+
+    &:active {
+      background-color: #003058;
+    }
+
+    &.secondary {
+      background-color: #BCE0FD;
+    }
+  }
+}
+
+button, input[type=submit] {
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  padding: 0px 10px;
+}
+
+form {
+  input:not([type=submit]), select, textarea {
+    margin: 5px 0;
+    border: solid 1px #BCE0FD;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: black;
+
+    &::placeholder {
+      color: #BCE0FD;
+    }
+
+  }
+
+  input:not([type=submit]), select {
+    height: 30px;
+  }
+
+  textarea {
+    height: 60px;
+  }
+
+  &:invalid {
+    input, select, textarea {
+      &:not([type=submit]) {
+        &:invalid {
+          color: #BCE0FD;
+          border-color: #7FC4FD;
+        }
+      }
+
+      &[type=submit] {
+        pointer-events: none;
+        opacity: .5;
+      }
+    }
+  }
+
+}
+
+label {
+  margin-top: 10px;
+  margin-bottom: 2px;
+  display: block;
+  color: #2699FB;
+}
+
+.price {
+  color: green !important;
+}
+
+.posts-container {
+  height: auto;
+  position: absolute;
+  display: inline-block;
+  height: calc(100% - 100px);
+  overflow: auto;
+
+  .posts {
+    padding: 40px 0;
+    .post {
+      background-size: cover;
+      background-blend-mode: overlay;
+      background-position: center;
+      padding: 0;
+      background-color: white;
+      border-radius: 5px;
+      overflow: hidden;
+      border: #2699FB solid 1px;
+
+      .post-info {
+        padding: 20px;
+        padding-bottom: 0px;
+      }
+
+      button {
+        border-radius: 0;
+        width: 100%;
+        background-color: transparent;
+        border-top: #2699FB solid 1px;
+        color: #2699FB;
+      }
+      h2, h3 {
+        margin: 0;
+      }
+      a {
+        color: black;
+        text-overflow: ellipsis;
+        width: calc(100% - 40px);
+        white-space: nowrap;
+      }
+
+    }
+  }
+
+}
+
+.img-container {
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  //margin-top: 10px;
+}

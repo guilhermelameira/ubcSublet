@@ -1,0 +1,204 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  box-sizing: border-box;
+  outline: none;
+}
+body {
+  margin: 0;
+}
+header {
+  background-image: url(https://news.ubc.ca/wp-content/uploads/2018/06/UBC-aerial.jpg);
+  background-size: cover;
+  background-blend-mode: soft-light;
+  background-position: 50% 45%;
+  background-color: #49a5ea;
+  height: 100px;
+}
+header button,
+header input[type=submit] {
+  background-color: transparent;
+  color: #F1F9FF;
+  border: solid #F1F9FF 1px;
+  float: right;
+  margin: 40px;
+}
+header button:hover,
+header input[type=submit]:hover {
+  background-color: white;
+  color: #2699FB;
+}
+header button:active,
+header input[type=submit]:active {
+  background-color: #003058;
+  border-color: #003058;
+  color: white;
+}
+header form {
+  float: right;
+}
+header form input:not([type=submit]),
+header form select,
+header form textarea {
+  background-color: transparent !important;
+  border: solid #F1F9FF 1px !important;
+  color: white !important;
+  height: 40px !important;
+  margin: 5px !important;
+  margin-top: 20px !important;
+}
+header form button,
+header form input[type=submit] {
+  margin: 5px;
+  margin-top: 20px !important;
+  margin-right: 40px;
+}
+section {
+  background-color: #F1F9FF;
+  margin: 10px;
+  padding: 20px;
+  width: 25%;
+  float: left;
+}
+h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #2699FB;
+  margin: 0;
+  margin-bottom: 20px;
+}
+h2 a {
+  font-size: 20px;
+  text-decoration: none;
+}
+main {
+  padding: 0 30px;
+  vertical-align: top;
+}
+section {
+  display: inline-block;
+  position: relative;
+  top: -30px;
+}
+section input:not([type=submit]),
+section select,
+section textarea {
+  width: 100%;
+}
+section button,
+section input[type=submit] {
+  background-color: #2699FB;
+  color: white;
+  margin-top: 10px;
+  font-weight: bolder;
+}
+section button:hover,
+section input[type=submit]:hover {
+  background-color: #227ad3;
+}
+section button:active,
+section input[type=submit]:active {
+  background-color: #003058;
+}
+section button.secondary,
+section input[type=submit].secondary {
+  background-color: #BCE0FD;
+}
+button,
+input[type=submit] {
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  padding: 0px 10px;
+}
+form input:not([type=submit]),
+form select,
+form textarea {
+  margin: 5px 0;
+  border: solid 1px #BCE0FD;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: black;
+}
+form input:not([type=submit])::placeholder,
+form select::placeholder,
+form textarea::placeholder {
+  color: #BCE0FD;
+}
+form input:not([type=submit]),
+form select {
+  height: 30px;
+}
+form textarea {
+  height: 60px;
+}
+form:invalid input:not([type=submit]):invalid,
+form:invalid select:not([type=submit]):invalid,
+form:invalid textarea:not([type=submit]):invalid {
+  color: #BCE0FD;
+  border-color: #7FC4FD;
+}
+form:invalid input[type=submit],
+form:invalid select[type=submit],
+form:invalid textarea[type=submit] {
+  pointer-events: none;
+  opacity: .5;
+}
+label {
+  margin-top: 10px;
+  margin-bottom: 2px;
+  display: block;
+  color: #2699FB;
+}
+.price {
+  color: green !important;
+}
+.posts-container {
+  height: auto;
+  position: absolute;
+  display: inline-block;
+  height: calc(100% - 100px);
+  overflow: auto;
+}
+.posts-container .posts {
+  padding: 40px 0;
+}
+.posts-container .posts .post {
+  background-size: cover;
+  background-blend-mode: overlay;
+  background-position: center;
+  padding: 0;
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  border: #2699FB solid 1px;
+}
+.posts-container .posts .post .post-info {
+  padding: 20px;
+  padding-bottom: 0px;
+}
+.posts-container .posts .post button {
+  border-radius: 0;
+  width: 100%;
+  background-color: transparent;
+  border-top: #2699FB solid 1px;
+  color: #2699FB;
+}
+.posts-container .posts .post h2,
+.posts-container .posts .post h3 {
+  margin: 0;
+}
+.posts-container .posts .post a {
+  color: black;
+  text-overflow: ellipsis;
+  width: calc(100% - 40px);
+  white-space: nowrap;
+}
+.img-container {
+  overflow: hidden;
+}
+img {
+  width: 100%;
+}
+/*# sourceMappingURL=main.css.map */

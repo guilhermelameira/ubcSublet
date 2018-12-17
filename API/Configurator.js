@@ -1,17 +1,11 @@
 const oracledb = require('oracledb');
+const connectionInfo = require('./Resources/ConnectionInfo');
 oracledb.autoCommit = true;
-
-const dbConfig = require('../dbconfig.js');
-const connectionInfo = {
-    user: dbConfig.user,
-    password: dbConfig.password,
-    connectString: dbConfig.connectString
-};
 const fs = require('fs');
 
 class Configurator {
     static async resetDB() {
-        const createTablesSql = fs.readFileSync('./CreateTables.sql').toString();
+        const createTablesSql = fs.readFileSync('API/Resources/CreateTables.sql').toString();
         let queries = createTablesSql.split('\n').filter(s => !s.trim().startsWith('--')).join(' ')
             .split('\t').join('').split(';')
             .map(s => s.trim()).filter(s => s.length > 0);

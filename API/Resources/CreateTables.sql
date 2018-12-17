@@ -22,7 +22,7 @@ CREATE TABLE UnitTypes
 	Kitchens number(1),
 	Residents number(1),
 	Bathrooms number(1),
-	MoreInfoLink varchar(200),
+	MoreInfoLink varchar(202),
 	PRIMARY KEY(UnitTypeName)
 );
 
@@ -30,8 +30,8 @@ CREATE TABLE UnitTypes
 CREATE TABLE Residences
 (
 	ResidenceName varchar(50),
-	PictureLink varchar(200),
-	MoreInfoLink varchar(200),
+	PictureLink varchar(202),
+	MoreInfoLink varchar(202),
 	PRIMARY KEY(ResidenceName)
 );
 
@@ -120,7 +120,7 @@ CREATE TABLE HistoryItems
 
 CREATE VIEW CompletePosts AS
 SELECT SubletPosts.PostId, SubletPosts.Price, SubletPosts.StartDate, SubletPosts.EndDate, SubletPosts.AdditionalInfo,
-       SubletPosts.Status, SubletPosts.RoomNumber, SubletPosts.Building, SubletPosts.Residence,
+       SubletPosts.Status, SubletPosts.Building, SubletPosts.Residence, SubletPosts.RoomNumber, SubletPosts.SubletterEmail,
        Rooms.Floor, Rooms.GenderRestriction, Rooms.UnitType,
        Residences.MoreInfoLink AS ResidenceInfoLink, Residences.PictureLink AS ResidencePictureLink,
        UnitTypes.Kitchens, UnitTypes.Bathrooms, UnitTypes.Residents, UnitTypes.MoreInfoLink AS UnitTypeInfoLink,
@@ -202,7 +202,7 @@ INSERT INTO OriginalPrices
 VALUES ('Marine Drive','Studio',1109);
 
 INSERT INTO OriginalPrices
-VALUES ('Marine Drive','Studio Large',1200);
+VALUES ('Marine Drive','Studio Large',1202);
 
 INSERT INTO OriginalPrices
 VALUES ('Ponderosa Commons','Four Bedroom',924);
@@ -250,20 +250,117 @@ INSERT INTO OriginalPrices
 VALUES ('Iona House','Two Bedroom Large',1009);
 
 
--- Add mock data
+-- Mock Data
 
---INSERT INTO Users
---VALUES ('gui.l.a@hotmail.com','ABC123');
---
---INSERT INTO Users
---VALUES ('1edmundoh@gmail.com','ABC123');
---
---INSERT INTO Users
---VALUES ('rahmanshamit@gmail.com','ABC123');
---
---INSERT INTO Users
---VALUES ('raov97@outlook.com','ABC123');
---
+INSERT INTO Users
+VALUES ('gui.l.a@hotmail.com','ABC123');
+
+INSERT INTO Users
+VALUES ('1edmundoh@gmail.com','ABC123');
+
+INSERT INTO Users
+VALUES ('rahmanshamit@gmail.com','ABC123');
+
+INSERT INTO Users
+VALUES ('raov97@outlook.com','ABC123');
+
+
+INSERT INTO Rooms
+VALUES (0613,'Building 1','Marine Drive',6,'Male','One Bedroom');
+
+INSERT INTO Rooms
+VALUES (0614,'Building 2','Ponderosa Commons',6,'Male','Four Bedroom');
+
+INSERT INTO Rooms
+VALUES (0615,'Building 3','Iona House',6,'Male','Three Bedroom');
+
+INSERT INTO Rooms
+VALUES (0616,'Building 4','Fraser Hall',6,'Male','Two Bedroom Large');
+
+INSERT INTO Rooms
+VALUES (0617,'Building 5','Thunderbird',6,'Male','Two Bedroom Large');
+
+
+INSERT INTO SubleteeInfos
+VALUES ('gui.l.a@hotmail.com','Gui','La','Number: 69696969');
+
+INSERT INTO SubleteeInfos
+VALUES ('1edmundoh@gmail.com','Ed','Ho','Im from SF');
+
+INSERT INTO SubleteeInfos
+VALUES ('rahmanshamit@gmail.com','Shamit','R','Hi');
+
+INSERT INTO SubleteeInfos
+VALUES ('raov97@outlook.com','Rodolfo','Orozco','Coolest Kid in School');
+
+
+INSERT INTO SubletPosts
+VALUES (1,700,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Closed','Building 4','Fraser Hall',0616,'gui.l.a@hotmail.com');
+
+INSERT INTO SubletPosts
+VALUES (2,600,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 3','Iona House',0615,'1edmundoh@gmail.com');
+
+INSERT INTO SubletPosts
+VALUES (3,700,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Closed','Building 2','Ponderosa Commons',0614,'rahmanshamit@gmail.com');
+
+INSERT INTO SubletPosts
+VALUES (4,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 1','Marine Drive',0613,'raov97@outlook.com');
+
+
+INSERT INTO SubletRequests
+VALUES ('gui.l.a@hotmail.com',2,'Pending','Number: 69696969');
+
+INSERT INTO SubletRequests
+VALUES ('1edmundoh@gmail.com',1,'Accepted','Im from SF');
+
+INSERT INTO SubletRequests
+VALUES ('rahmanshamit@gmail.com',4,'Pending','Hi');
+
+INSERT INTO SubletRequests
+VALUES ('raov97@outlook.com',3,'Accepted','Coolest Kid in School');
+
+
+INSERT INTO HistoryItems
+VALUES ('gui.l.a@hotmail.com',1,TO_TIMESTAMP ('03.12.2010:12:34:24','DD.MM.YYYY:HH24:MI:SS'));
+
+INSERT INTO HistoryItems
+VALUES ('rahmanshamit@gmail.com',3,TO_TIMESTAMP ('03.12.2012:14:34:24','DD.MM.YYYY:HH24:MI:SS'));
+
+
+INSERT INTO SubletPosts
+VALUES (5,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 2','Ponderosa Commons',0613,'raov97@outlook.com');
+
+
+INSERT INTO SubletPosts
+VALUES (6,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 1','Marine Drive',0613,'raov97@outlook.com');
+
+
+INSERT INTO SubletPosts
+VALUES (7,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 5','Thunderbird',0617,'raov97@outlook.com');
+
+
+INSERT INTO SubletPosts
+VALUES (8,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 2','Ponderosa Commons',0614,'raov97@outlook.com');
+
+
+INSERT INTO SubletPosts
+VALUES (9,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 2','Ponderosa Commons',0614,'raov97@outlook.com');
+
+
+INSERT INTO SubletPosts
+VALUES (10,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 3','Fraser Hall',0615,'raov97@outlook.com');
+
+
+INSERT INTO SubletPosts
+VALUES (11,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 1','Marine Drive',0613,'raov97@outlook.com');
+
+
+INSERT INTO SubletPosts
+VALUES (12,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 1','Marine Drive',0613,'raov97@outlook.com');
+
+
+INSERT INTO SubletPosts
+VALUES (13,800,TO_TIMESTAMP ('03.12.2027:12:34:24','DD.MM.YYYY:HH24:MI:SS'),TO_TIMESTAMP ('03.12.2028:12:34:24','DD.MM.YYYY:HH24:MI:SS'),'None','Open','Building 1','Marine Drive',0613,'raov97@outlook.com');
 
 
 
